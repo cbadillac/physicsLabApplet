@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class PhysicsLabApplet extends JApplet {
 	public void init(){
+		
 		Container contentPane = getContentPane();
 		MyWorld world = new MyWorld();
 		MyWorldView  worldView = new MyWorldView(world);

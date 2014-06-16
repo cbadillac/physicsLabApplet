@@ -2,22 +2,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
 	<h1>
-		My Physics Lab web App
+		My Physics Lab Web App
 	</h1> 
 </head>
 <body>
 	<applet code=PhysicsLabApplet.class width="1000" height="400" >
 		<param name="title" value="Physics Lab: 3 Experiencing with oscillations"/> 
-		<param name="fixedHookNum" value="1"/> 
-		<param name="fixedHook.1" value="poner aquí sus atributos separados por ;"/> 
+		<param name="fixedHookNum" value="2"/> 
+   <!-- <param name="fixedHook.x" value="position"/> -->
+		<param name="fixedHook.1" value="0.5"/>
+		<param name="fixedHook.2" value="1.5"/> 
 		<param name="ballNum" value="3"/> 
-		<param name="ball.1" value="poner aquí sus atributos separados por ;"/> 
-		<param name="ball.2" value="poner aquí sus atributos separados por ;"/> 
-		<param name="ball.3" value="poner aquí sus atributos separados por ;"/> 
-		<param name="oscillatorNum" value="1"/> 
-		<param name="oscillator.1" value="poner aquí sus atributos separados por ;"/> 
+<!-- 	<param name="ball.x" value="speed; mass; pos_x;radius "/>	 -->
+		<param name="ball.1" value="0; 1; 1; 0.1"/>
+		<param name="ball.2" value="0; 1; 2; 0.1"/> 
+		<param name="ball.3" value="0; 1; 3; 0.1"/> 
+		<param name="oscillatorNum" value="1"/>
+   <!-- <param name="oscillator.x" value="amplitude; frequency; position"/> --> 
+		<param name="oscillator.1" value="0.5; 1; 2.5"/>  
 		<param name="deltaTime" value="0.001"/> 
-		<param name="refreshTime" value="0.03"/> 
+		<param name="refreshTime" value="0.005"/> 
 		<param name="maxPlotTime" value="30"/> 
 	</applet>
 </body>

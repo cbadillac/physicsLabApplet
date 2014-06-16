@@ -1,4 +1,8 @@
 import java.awt.event.*; 
+import java.util.regex.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -23,6 +27,7 @@ public class LabMenuListener implements ActionListener {
       // Actions associated to main manu options
       if ( (text.equals("My scenario")) && !isApplet) {  // here you define Etapa2's configuration
        // to be coded
+    	     	 
          double mass = 1.0;      // 1 [kg] 
          double radius = 0.1;    // 10 [cm] 
          double position = 1.0;  // 1 [m] 
@@ -41,14 +46,36 @@ public class LabMenuListener implements ActionListener {
     	  double radius = 0.1;    // 10 [cm] 
     	  double position = 1.0;  // 1 [m] 
     	  double speed = 0.0;     // 0.5 [m/s]
-    	  Ball b = new Ball(mass, radius, position, speed);
-    	  FixedHook h = new FixedHook(0.2);
-    	  Spring s = new Spring (0.5, 5);
-    	  s.attachAend(h);
-    	  s.attachBend(b);
-    	  world.addElement(b);
-    	  world.addElement(h);
-    	  world.addElement(s);
+    	  double frequency = 0;
+    	  double amplitude = 0;
+    	  for (int i = 0; i < Integer.parseInt(phyla.getParameter("ballNum")); i++) {
+    		  
+    		  speed    = Float.parseFloat(phyla.getParameter("ball." + (i+1)).split("[;]")[0]);
+    		  mass     = Float.parseFloat(phyla.getParameter("ball." + (i+1)).split("[;]")[1]);
+    		  position = Float.parseFloat(phyla.getParameter("ball." + (i+1)).split("[;]")[2]);
+    		  radius   = Float.parseFloat(phyla.getParameter("ball." + (i+1)).split("[;]")[3]);
+    		  
+    		  world.addElement(new Ball(mass, radius, position, speed));
+    		  
+    	  }
+    	  
+    	  for (int i = 0; i < Integer.parseInt(phyla.getParameter("fixedHookNum")); i++) {
+    		  position = Float.parseFloat(phyla.getParameter("fixedHook." + (i+1)));
+    		  
+    		  world.addElement(new FixedHook(position));
+		}
+    	  for (int i = 0; i < Integer.parseInt(phyla.getParameter("oscillatorNum")); i++) {
+
+    		  amplitude= Float.parseFloat(phyla.getParameter("oscillator." + (i+1)).split("[;]")[0]);
+    		  frequency= Float.parseFloat(phyla.getParameter("oscillator." + (i+1)).split("[;]")[1]);
+    		  position = Float.parseFloat(phyla.getParameter("oscillator." + (i+1)).split("[;]")[2]);
+    		  
+    		  world.addElement(new Oscillator(position, amplitude, frequency));
+    		  
+    	  }
+    	  
+    	  world.setDelta_t(Float.parseFloat(phyla.getParameter("deltaTime")));
+    	  world.setRefreshPeriod(Float.parseFloat(phyla.getParameter("refreshTime")));
       }
       if (text.equals("Ball")) 
         world.addElement(new Ball(1.0, 0.1, 1.2, 0));
@@ -88,4 +115,6 @@ public class LabMenuListener implements ActionListener {
    public void setPhyla(PhysicsLabApplet phyla) {
 	   this.phyla = phyla;
    }
+    
+   
 }
