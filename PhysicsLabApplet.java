@@ -1,12 +1,17 @@
+import java.util.Random;
 import java.awt.*;
 import javax.swing.*;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
 import org.jfree.ui.ApplicationFrame;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 public class PhysicsLabApplet extends JApplet {
 	public void init() {
@@ -21,7 +26,7 @@ public class PhysicsLabApplet extends JApplet {
 		setLayout(new GridLayout(2,1,10,0)); 
 		
 		Container contentPane = getContentPane();
-		contentPane.add(new ChartPanel(crearChart(crearDataSet())));
+		contentPane.add(new ChartPanel(crearChart()));
 		contentPane.add(worldView);
 	}
 	
@@ -66,36 +71,39 @@ public class PhysicsLabApplet extends JApplet {
 		menuItem.addActionListener(menu_l);
 		subMenu.add(menuItem);
 		menu.add(subMenu);      
+		
 		return mb;
 	}
-	private static PieDataset crearDataSet()
+	private static XYDataset crearDataSet()
 	{
-	    DefaultPieDataset data=new DefaultPieDataset();
-	    data.setValue("Uno",new Double(43.2));
-	    data.setValue("Dos",new Double(10.0));
-	    data.setValue("Tres",new Double(27.5));
-	    data.setValue("Cuatro",new Double(17.5));
-	    data.setValue("Cinco",new Double(11.0));
-	    data.setValue("Seis",new Double(19.4));
-	    return data;
+        XYSeriesCollection xySeriesCollection = new XYSeriesCollection();
+        XYSeries series = new XYSeries("Random");
+        
+        for (int i = 0; i < 8 * 8; i++) {
+            double x = (new Random()).nextGaussian();
+            double y = (new Random()).nextGaussian();
+            series.add(x, y);
+        }
+        
+        xySeriesCollection.addSeries(series);
+        
+        return xySeriesCollection;
 	}
-	private static JFreeChart crearChart(PieDataset data)
+	private static JFreeChart crearChart()
 	{
-	    JFreeChart chart = ChartFactory.createPieChart(
-	            "Demo de PieChart",     //Nombre del gráfico
-	            data,                   //data
-	            true,                  //Leyenda
-	            true,
-	            false);       
-	    //Color de la ventana
-	    chart.setBackgroundPaint(Color.ORANGE);
-	    PiePlot plot = (PiePlot)chart.getPlot();
-	    //Color de las etiquetas
-	    plot.setLabelBackgroundPaint(Color.ORANGE);
-	    //Color de el fondo del gráfico
-	    plot.setBackgroundPaint(Color.WHITE);
-	    plot.setNoDataMessage("No hay data");
-	 
-	    return chart;
+	    JFreeChart jfreechart = ChartFactory.createScatterPlot(
+	        "Energy Plot", "X", "Y", crearDataSet(),
+	        PlotOrientation.VERTICAL, true, true, false);
+	    XYPlot xyPlot = (XYPlot) jfreechart.getPlot();
+	    xyPlot.setDomainCrosshairVisible(true);
+	    xyPlot.setRangeCrosshairVisible(true);
+	    
+	    XYItemRenderer renderer = xyPlot.getRenderer();
+	    renderer.setSeriesPaint(0, Color.blue);
+	    
+	    NumberAxis domain = (NumberAxis) xyPlot.getDomainAxis();
+	    domain.setVerticalTickLabels(true);
+	    
+	    return jfreechart;
 	}
 }
