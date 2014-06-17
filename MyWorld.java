@@ -105,21 +105,24 @@ public class MyWorld implements ActionListener {
             if (e.contains(x,0)) return (SpringAttachable)e;
       return null;
    }
-   static public double getTotalKineticEnergy() {
+   public double getTotalKineticEnergy() {
 	   double balls_energy = 0.0;
 	   for( PhysicsElement e: elements) {
 		   if( e instanceof Ball) {
-			   balls_energy += e.speed_t*e.mass*0.5; 
+			   balls_energy += ((Ball)e).getSpeed()*((Ball)e).getMass()*0.5; 
 		   }
 	   }
 	   
 	   return balls_energy;	   
    }
-   static public double getTotalPotentialEnergy() {
+   public double getTotalPotentialEnergy() {
 	   double springs_energy = 0.0;
 	   for( PhysicsElement e: elements) {
 		   if( e instanceof Spring) {
-			   springs_energy += e.restLength*e.restLength*e.stiffness*0.5; 
+			   springs_energy += ((Spring)e).getRestLength()
+					   *((Spring)e).getRestLength()
+					   *((Spring)e).getStiffness()
+					   *0.5; 
 		   }
 	   }
 	   
