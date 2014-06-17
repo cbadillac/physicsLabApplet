@@ -1,17 +1,28 @@
 import java.awt.*;
 import javax.swing.*;
-
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+import org.jfree.ui.ApplicationFrame;
 
 public class PhysicsLabApplet extends JApplet {
-	public void init(){
-		
-		Container contentPane = getContentPane();
+	public void init() {
+		this.setSize(940,300);
 		MyWorld world = new MyWorld();
 		MyWorldView  worldView = new MyWorldView(world);
 		world.setView(worldView);
-		contentPane.add(worldView);
+		
 		LabMenuListener menuListener = new LabMenuListener(world, this);
 		setJMenuBar(createLabMenuBar(menuListener));
+		
+		setLayout(new GridLayout(2,1,10,0)); 
+		
+		Container contentPane = getContentPane();
+		contentPane.add(new ChartPanel(crearChart(crearDataSet())));
+		contentPane.add(worldView);
 	}
 	
 	public JMenuBar createLabMenuBar(LabMenuListener menu_l) {
@@ -56,6 +67,35 @@ public class PhysicsLabApplet extends JApplet {
 		subMenu.add(menuItem);
 		menu.add(subMenu);      
 		return mb;
-		   }
-
+	}
+	private static PieDataset crearDataSet()
+	{
+	    DefaultPieDataset data=new DefaultPieDataset();
+	    data.setValue("Uno",new Double(43.2));
+	    data.setValue("Dos",new Double(10.0));
+	    data.setValue("Tres",new Double(27.5));
+	    data.setValue("Cuatro",new Double(17.5));
+	    data.setValue("Cinco",new Double(11.0));
+	    data.setValue("Seis",new Double(19.4));
+	    return data;
+	}
+	private static JFreeChart crearChart(PieDataset data)
+	{
+	    JFreeChart chart = ChartFactory.createPieChart(
+	            "Demo de PieChart",     //Nombre del gráfico
+	            data,                   //data
+	            true,                  //Leyenda
+	            true,
+	            false);       
+	    //Color de la ventana
+	    chart.setBackgroundPaint(Color.ORANGE);
+	    PiePlot plot = (PiePlot)chart.getPlot();
+	    //Color de las etiquetas
+	    plot.setLabelBackgroundPaint(Color.ORANGE);
+	    //Color de el fondo del gráfico
+	    plot.setBackgroundPaint(Color.WHITE);
+	    plot.setNoDataMessage("No hay data");
+	 
+	    return chart;
+	}
 }
