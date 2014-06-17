@@ -23,10 +23,13 @@ public class PhysicsLabApplet extends JApplet {
 		LabMenuListener menuListener = new LabMenuListener(world, this);
 		setJMenuBar(createLabMenuBar(menuListener));
 		
-		setLayout(new GridLayout(2,1,10,0)); 
+		setLayout(new GridLayout(2,1,0,50));
+		
+		ChartPanel chartpanel = new ChartPanel(crearChart());
+		//chartpanel.setPreferredSize(new Dimension(300,200));
 		
 		Container contentPane = getContentPane();
-		contentPane.add(new ChartPanel(crearChart()));
+		contentPane.add(chartpanel);
 		contentPane.add(worldView);
 	}
 	
@@ -80,7 +83,7 @@ public class PhysicsLabApplet extends JApplet {
         XYSeries series = new XYSeries("Random");
         
         for (int i = 0; i < 8 * 8; i++) {
-            double x = (new Random()).nextGaussian();
+            double x = i;
             double y = (new Random()).nextGaussian();
             series.add(x, y);
         }
@@ -91,7 +94,7 @@ public class PhysicsLabApplet extends JApplet {
 	}
 	private static JFreeChart crearChart()
 	{
-	    JFreeChart jfreechart = ChartFactory.createScatterPlot(
+	    JFreeChart jfreechart = ChartFactory.createXYLineChart(
 	        "Energy Plot", "X", "Y", crearDataSet(),
 	        PlotOrientation.VERTICAL, true, true, false);
 	    XYPlot xyPlot = (XYPlot) jfreechart.getPlot();
@@ -99,8 +102,7 @@ public class PhysicsLabApplet extends JApplet {
 	    xyPlot.setRangeCrosshairVisible(true);
 	    
 	    XYItemRenderer renderer = xyPlot.getRenderer();
-	    renderer.setSeriesPaint(0, Color.blue);
-	    
+
 	    NumberAxis domain = (NumberAxis) xyPlot.getDomainAxis();
 	    domain.setVerticalTickLabels(true);
 	    
