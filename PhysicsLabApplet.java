@@ -10,7 +10,7 @@ import org.jfree.ui.ApplicationFrame;
 
 public class PhysicsLabApplet extends JApplet {
 	public void init() {
-		this.setSize(940,300);
+		this.setSize(940,500);
 		MyWorld world = new MyWorld();
 		MyWorldView  worldView = new MyWorldView(world);
 		world.setView(worldView);
