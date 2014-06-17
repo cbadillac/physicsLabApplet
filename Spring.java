@@ -61,6 +61,9 @@ public class Spring extends PhysicsElement {
    public double getRestLength() {
       return restLength;
    }
+   public double getStiffness() {
+	   return stiffness;
+   }
    public double getForce(SpringAttachable ball) {
       double force = 0;
       if ((a_end == null) || (b_end == null))
