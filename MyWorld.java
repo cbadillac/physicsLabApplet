@@ -13,9 +13,10 @@ public class MyWorld implements ActionListener {
    private double delta_t;        // in seconds
    private double refreshPeriod;  // in seconds
    
+   private EnergyPlot energyPlot;
+   
    public MyWorld(){
-      this(System.out);  // delta_t= 0.1[ms] and refreshPeriod=200 [ms]
-      
+      this(System.out);  // delta_t= 0.1[ms] and refreshPeriod=200 [ms]   
    }
    public MyWorld(PrintStream output){
       out = output;
@@ -24,9 +25,12 @@ public class MyWorld implements ActionListener {
       delta_t = 0.00001;          // 0.01 [ms]
       elements = new ArrayList<PhysicsElement>();
       view = null;
-      passingTime = new Timer((int)(refreshPeriod*1000), this);    
+      passingTime = new Timer((int)(refreshPeriod*1000), this);  
+      energyPlot = null;
    }
-
+   public void associate(EnergyPlot plot) {
+	   this.energyPlot = plot;
+   }
    public void addElement(PhysicsElement e) {
       elements.add(e);
       view.repaintView();
@@ -69,6 +73,9 @@ public class MyWorld implements ActionListener {
    }
    
    public void repaintView(){
+	  double ec = getTotalKineticEnergy();
+	  double pc = getTotalPotentialEnergy();
+	  energyPlot.add(t,ec,t,pc);
       view.repaintView();
    }
 
@@ -109,7 +116,7 @@ public class MyWorld implements ActionListener {
 	   double balls_energy = 0.0;
 	   for( PhysicsElement e: elements) {
 		   if( e instanceof Ball) {
-			   balls_energy += ((Ball)e).getSpeed()*((Ball)e).getMass()*0.5; 
+			   balls_energy += Math.abs(((Ball)e).getSpeed()*((Ball)e).getMass()*0.5); 
 		   }
 	   }
 	   
@@ -119,11 +126,11 @@ public class MyWorld implements ActionListener {
 	   double springs_energy = 0.0;
 	   for( PhysicsElement e: elements) {
 		   if( e instanceof Spring) {
-			   springs_energy += ((Spring)e).getRestLength()
-					   *((Spring)e).getRestLength()
-					   *((Spring)e).getStiffness()
-					   *0.5; 
+			   Spring s = (Spring) e;
+			   double stretch = Math.abs(s.getBendPosition()-s.getAendPosition())-s.getRestLength();
+			   springs_energy += Math.abs(stretch*stretch*s.getStiffness()*0.5); 
 		   }
+		   out.println("Energua potencial: "+springs_energy);
 	   }
 	   
 	   return springs_energy;	   

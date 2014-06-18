@@ -1,22 +1,14 @@
-import java.util.Random;
 import java.awt.*;
+
 import javax.swing.*;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 public class PhysicsLabApplet extends JApplet {
 	public void init() {
 		this.setSize(940,500);
+		EnergyPlot energyChart = new EnergyPlot();
 		MyWorld world = new MyWorld();
+		world.associate(energyChart);
 		MyWorldView  worldView = new MyWorldView(world);
 		world.setView(worldView);
 		
@@ -24,13 +16,14 @@ public class PhysicsLabApplet extends JApplet {
 		setJMenuBar(createLabMenuBar(menuListener));
 		
 		setLayout(new GridLayout(2,1,0,50));
-		
-		ChartPanel chartpanel = new ChartPanel(crearChart());
-		//chartpanel.setPreferredSize(new Dimension(300,200));
+
+	    ChartPanel chartPanel = new ChartPanel(energyChart.getPlot());
+	    chartPanel.setPreferredSize(new Dimension(300,200));
 		
 		Container contentPane = getContentPane();
-		contentPane.add(chartpanel);
+		contentPane.add(chartPanel);
 		contentPane.add(worldView);
+		
 	}
 	
 	public JMenuBar createLabMenuBar(LabMenuListener menu_l) {
@@ -76,36 +69,5 @@ public class PhysicsLabApplet extends JApplet {
 		menu.add(subMenu);      
 		
 		return mb;
-	}
-	private static XYDataset crearDataSet()
-	{
-        XYSeriesCollection xySeriesCollection = new XYSeriesCollection();
-        XYSeries series = new XYSeries("Random");
-        
-        for (int i = 0; i < 8 * 8; i++) {
-            double x = i;
-            double y = (new Random()).nextGaussian();
-            series.add(x, y);
-        }
-        
-        xySeriesCollection.addSeries(series);
-        
-        return xySeriesCollection;
-	}
-	private static JFreeChart crearChart()
-	{
-	    JFreeChart jfreechart = ChartFactory.createXYLineChart(
-	        "Energy Plot", "X", "Y", crearDataSet(),
-	        PlotOrientation.VERTICAL, true, true, false);
-	    XYPlot xyPlot = (XYPlot) jfreechart.getPlot();
-	    xyPlot.setDomainCrosshairVisible(true);
-	    xyPlot.setRangeCrosshairVisible(true);
-	    
-	    XYItemRenderer renderer = xyPlot.getRenderer();
-
-	    NumberAxis domain = (NumberAxis) xyPlot.getDomainAxis();
-	    domain.setVerticalTickLabels(true);
-	    
-	    return jfreechart;
 	}
 }
