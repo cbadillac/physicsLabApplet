@@ -17,7 +17,7 @@ public class EnergyPlot{
 	private String nombreEjeX;
 	private String nombreEjeY;
 	
-	private XYSeries cinetica, potencial;
+	private XYSeries cinetica, potencial, mecanica;
 	private JFreeChart plot;
 	
 	public EnergyPlot() {
@@ -26,6 +26,7 @@ public class EnergyPlot{
 		this.nombreEjeY = "Energía";
 		this.cinetica = new XYSeries("Energía Cinética");
 		this.potencial = new XYSeries("Energía Potencial");
+		this.mecanica = new XYSeries("Energía Mecánica");
 		this.plot = crearChart();
 	}
 
@@ -33,6 +34,7 @@ public class EnergyPlot{
 		XYSeriesCollection collection = new XYSeriesCollection();
 		collection.addSeries(cinetica);
 		collection.addSeries(potencial);
+		collection.addSeries(mecanica);
 		
 	    JFreeChart jfreechart = ChartFactory.createXYLineChart(
 	        titulo, nombreEjeX, nombreEjeY, collection,
@@ -41,13 +43,10 @@ public class EnergyPlot{
 	    XYPlot xyPlot = (XYPlot) jfreechart.getPlot();
 	    xyPlot.setDomainCrosshairVisible(true);
 	    xyPlot.setRangeCrosshairVisible(true);
-	    
-	    //XYItemRenderer renderer = xyPlot.getRenderer();
-	    //renderer.setSeriesPaint(0, Color.BLUE);
 
 	    NumberAxis domain = (NumberAxis) xyPlot.getDomainAxis();
 	    domain.setVerticalTickLabels(true);
-        domain.setRange(0.0, 30.0); 
+	    domain.setFixedAutoRange(30.0);
 	    
 	    return jfreechart;
 	}
@@ -57,5 +56,6 @@ public class EnergyPlot{
 	public void add(double cx, double cy, double px, double py) {
 		cinetica.add(cx, cy);
 		potencial.add(px, py);
+		mecanica.add(cx, cy+py);
 	}
 }
