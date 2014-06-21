@@ -43,7 +43,7 @@ Para agregar elementos y configuraciones de la applet basta agregar las siguient
 
 **Número de Elementos:**
 
-    <param name="<Element>Num" value="<numero de FixedHook>"/> 
+    <param name="<Element>Num" value="<Numbers of elements>"/> 
 
 **Posición de FixedHook:**
 
