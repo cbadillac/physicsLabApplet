@@ -18,7 +18,7 @@ class PhysicsLab_GUI extends JFrame {
 	
    public PhysicsLab_GUI() {
       setTitle("My Small and Nice Physics Laboratory");
-      setSize(MyWorldView.WIDTH, MyWorldView.HEIGHT+50);  // height+50 to account for menu height
+      setSize(MyWorldView.WIDTH, MyWorldView.HEIGHT+50+300);  // height+50 to account for menu height +30 for
       
       EnergyPlot energyChart = new EnergyPlot();
       MyWorld world = new MyWorld();
@@ -29,14 +29,15 @@ class PhysicsLab_GUI extends JFrame {
       LabMenuListener menuListener = new LabMenuListener(world);
       setJMenuBar(createLabMenuBar(menuListener));
       
-      setLayout(new GridLayout(2,1,0,50));
+      setLayout(new GridLayout(1,2,0,50));
 
 	    ChartPanel chartPanel = new ChartPanel(energyChart.getPlot());
-	    chartPanel.setPreferredSize(new Dimension(950,500));
+	    chartPanel.setPreferredSize(new Dimension(300,200));
 	    menuListener.associate(energyChart);
 	    
-		add(chartPanel);
-		add(worldView);
+	  Container contentPane = getContentPane();
+		contentPane.add(worldView);
+		contentPane.add(chartPanel);
    }
 
    public JMenuBar createLabMenuBar(LabMenuListener menu_l) {

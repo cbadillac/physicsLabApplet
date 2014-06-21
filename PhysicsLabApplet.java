@@ -15,16 +15,15 @@ public class PhysicsLabApplet extends JApplet {
 		LabMenuListener menuListener = new LabMenuListener(world, this);
 		setJMenuBar(createLabMenuBar(menuListener));
 		
-		setLayout(new GridLayout(2,1,0,50));
+		setLayout(new GridLayout(1,2,0,50));
 
 	    ChartPanel chartPanel = new ChartPanel(energyChart.getPlot());
 	    chartPanel.setPreferredSize(new Dimension(300,200));
 	    menuListener.associate(energyChart);
 		
 		Container contentPane = getContentPane();
-		contentPane.add(chartPanel);
 		contentPane.add(worldView);
-		
+		contentPane.add(chartPanel);		
 	}
 	
 	public JMenuBar createLabMenuBar(LabMenuListener menu_l) {
