@@ -9,21 +9,13 @@ encuentra un 'Makefile':
 
 	>> make 		: compila *.java y genera los archivos *.class.
 	>> make jar		: genera PhysicsLab.jar
-	>> make run		: ejecuta el programa desde el jar (es necesario hace make && make jar antes de run)
-	>> mkae runApplet 	: ejecuta el applet usando el jar (idem que 'make run')
 	>> make clean 		: elimina *.class compilados y PhysicsLab.jar.
 
 Ejecución
 ----------
 
-Una vez ejecutado 'make', se puede correr el programa con
-
------- Applet
-	>> java PhysicsLab
-
-Con esto se despliega una ventana con un menu y un area para visualizar
-los elementos físicos.
--------- Applet
+	>> make run		: ejecuta el programa desde el jar (es necesario hace make && make jar antes de run)
+	>> mkae runApplet 	: ejecuta el applet usando el jar (idem que 'make run')
 
 Para agregar un nuevo elemento se debe ingresar a "Configuration->Insert"
 y se puede seleccionar el elemento deseado.
