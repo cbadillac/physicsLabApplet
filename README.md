@@ -37,3 +37,34 @@ se agregó un nuevo menu para trabajar con el gráfico, en el que se tiene un
 subitem "Clear Plot" con el que se puede borrar lo graficado en el plot, sin perder
 la referencia de tiempo orignal.
 
+Además se ha agregado la opción de correr la aplicación como Applet embebido en un archivo HTML. En el HTML se pueden especificar la cantididad de elementos a agregar en el applet, la ubicación, y en algunos casos los aspectos físicos de estos. 
+
+Para agregar elementos basta agregar las siguientes lineas HTML:
+
+**Número de Elementos:**
+
+    <param name="<Element>Num" value="<numero de FixedHook>"/> 
+
+**Posición de FixedHook:**
+
+    <param name="fixedHook.x" value="position"/> where x is position
+    
+**Parámetros de Esferas**
+
+    <param name="ball.x" value="speed; mass; pos_x;radius "/>
+    
+**Parámetros de Osciladores**
+
+    <param name="oscillator.x" value="amplitude; frequency; position"/>
+    
+**Tiempo de Muestreo y de Refresco**
+
+    <param name="deltaTime" value="time in seconds"/>
+
+    <param name="refreshTime" value="time in seconds"/>
+
+**Título de Frame**
+
+    <param name="title" value="Title"/> 
+ 
+
