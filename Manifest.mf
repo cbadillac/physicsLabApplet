@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: PhysicsLab
+Class-Path: jcommon.jar jfreechart.jar
