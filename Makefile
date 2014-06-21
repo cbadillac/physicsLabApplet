@@ -1,12 +1,10 @@
 JFLAGS = -g
 JC = javac
-JAR = jar -cf
+JAR = jar -cvfm
 JARNAME = PhysicsLab.jar
-JARCLASS = PhysicsLabApplet.class
+JARCLASS = PhysicsLab.class
 CLASSPATH = .:jfreechart.jar:jcommon.jar
 RM = rm
-
-JARNAME = PhysicsLab.jar
 
 .SUFFIXES: .java .class
 .java.class:
@@ -56,4 +54,11 @@ clean:
 	$(RM) *.class $(JARNAME)
 	
 jar:
-	$(JAR) $(JARNAME) $(JARCLASS)
+	$(JAR) $(JARNAME) Manifest.txt *.class
+
+run:
+	java -jar $(JARNAME)
+
+runApplet:
+	appletviewer -J-classpath -J$(JARNAME) PhysicsLab.html
+

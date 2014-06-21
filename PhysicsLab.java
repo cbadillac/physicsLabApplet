@@ -1,6 +1,10 @@
-import javax.swing.JFrame;
 import javax.swing.*;
+
+import org.jfree.chart.ChartPanel;
+
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 
 public class PhysicsLab {
    public static void main(String[] args) {
@@ -11,15 +15,28 @@ public class PhysicsLab {
 }
 
 class PhysicsLab_GUI extends JFrame {
+	
    public PhysicsLab_GUI() {
       setTitle("My Small and Nice Physics Laboratory");
       setSize(MyWorldView.WIDTH, MyWorldView.HEIGHT+50);  // height+50 to account for menu height
+      
+      EnergyPlot energyChart = new EnergyPlot();
       MyWorld world = new MyWorld();
       MyWorldView  worldView = new MyWorldView(world);
+      world.associate(energyChart);
       world.setView(worldView);
-      add(worldView);  
+      
       LabMenuListener menuListener = new LabMenuListener(world);
       setJMenuBar(createLabMenuBar(menuListener));
+      
+      setLayout(new GridLayout(2,1,0,50));
+
+	    ChartPanel chartPanel = new ChartPanel(energyChart.getPlot());
+	    chartPanel.setPreferredSize(new Dimension(300,200));
+	    menuListener.associate(energyChart);
+	    
+		add(chartPanel);
+		add(worldView);
    }
 
    public JMenuBar createLabMenuBar(LabMenuListener menu_l) {
@@ -61,7 +78,14 @@ class PhysicsLab_GUI extends JFrame {
       menuItem = new JMenuItem("View Refresh time");
       menuItem.addActionListener(menu_l);
       subMenu.add(menuItem);
-      menu.add(subMenu);      
+      menu.add(subMenu);
+      
+      menu = new JMenu("Plot");
+		mb.add(menu);
+		menuItem = new JMenuItem("Clear Plot");
+		menuItem.addActionListener(menu_l);
+		menu.add(menuItem);
+      
       return mb;          
    }   
 }
