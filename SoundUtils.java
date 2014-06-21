@@ -57,6 +57,7 @@ public class SoundUtils {
 		  clip = (Clip) AudioSystem.getLine(info);
 		  clip.open(stream);
 		  clip.start();
+		  clip.close();
 	  }
 	  catch (Exception e) {
 		  //whatevers
