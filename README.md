@@ -39,7 +39,7 @@ la referencia de tiempo orignal.
 
 Además se ha agregado la opción de correr la aplicación como Applet embebido en un archivo HTML. En el HTML se pueden especificar la cantididad de elementos a agregar en el applet, la ubicación, y en algunos casos los aspectos físicos de estos. 
 
-Para agregar elementos basta agregar las siguientes lineas HTML:
+Para agregar elementos y configuraciones de la applet basta agregar las siguientes lineas HTML:
 
 **Número de Elementos:**
 
