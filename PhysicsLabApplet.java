@@ -1,11 +1,12 @@
 import java.awt.*;
 
 import javax.swing.*;
+
 import org.jfree.chart.ChartPanel;
 
 public class PhysicsLabApplet extends JApplet {
 	public void init() {
-		this.setSize(940,500);
+		this.setSize(1024,768);
 		EnergyPlot energyChart = new EnergyPlot();
 		MyWorld world = new MyWorld();
 		world.associate(energyChart);
@@ -13,17 +14,23 @@ public class PhysicsLabApplet extends JApplet {
 		world.setView(worldView);
 		
 		LabMenuListener menuListener = new LabMenuListener(world, this);
-		setJMenuBar(createLabMenuBar(menuListener));
 		
-		setLayout(new GridLayout(1,2,0,50));
-
 	    ChartPanel chartPanel = new ChartPanel(energyChart.getPlot());
 	    chartPanel.setPreferredSize(new Dimension(300,200));
-	    menuListener.associate(energyChart);
-		
-		Container contentPane = getContentPane();
-		contentPane.add(worldView);
-		contentPane.add(chartPanel);		
+	    menuListener.associate(energyChart);	
+	    JScrollPane buttomScrollPane = new JScrollPane(worldView);
+	    getContentPane().add(buttomScrollPane, BorderLayout.CENTER);
+	    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, buttomScrollPane, chartPanel);
+	    splitPane.setDividerLocation(512);
+	    
+	    
+	    JInternalFrame frame = new JInternalFrame("hola", false, false, false, false);
+	    frame.add(splitPane);
+	    frame.setVisible(true);
+	    frame.pack();
+	    frame.setJMenuBar(createLabMenuBar(menuListener));
+	    Container contentPane = getContentPane();
+	    contentPane.add(frame);
 	}
 	
 	public JMenuBar createLabMenuBar(LabMenuListener menu_l) {
