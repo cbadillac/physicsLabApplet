@@ -54,11 +54,11 @@ clean:
 	$(RM) *.class $(JARNAME)
 	
 jar:
-	$(JAR) $(JARNAME) Manifest.txt *.class
+	$(JAR) $(JARNAME) Manifest.mf *.class
 
 run:
 	java -jar $(JARNAME)
 
 runApplet:
-	appletviewer -J-classpath -J$(JARNAME) PhysicsLab.html
+	appletviewer -J-classpath -J$(JARNAME) applet.html
 
