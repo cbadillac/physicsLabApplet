@@ -24,7 +24,8 @@ public class PhysicsLabApplet extends JApplet {
 	    splitPane.setDividerLocation(512);
 	    
 	    
-	    JInternalFrame frame = new JInternalFrame("hola", false, false, false, false);
+	    
+	    JInternalFrame frame = new JInternalFrame(getParameter("title"), false, false, false, false);
 	    frame.add(splitPane);
 	    frame.setVisible(true);
 	    frame.pack();
