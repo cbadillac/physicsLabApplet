@@ -7,11 +7,11 @@ Compilación
 En éste directorio se encuentra la carpeta de la 'etapa 4'. En esta se
 encuentra un 'Makefile':
 
-	>> make 	: compila *.java de la etapa 4.
-	>> make doc 	: crea documentación de las clases Ball, BallView y 
-					  MyWorld en el direcotorio 'documentacion'.
-	>> make clean 	: elimina *.class compilados.
-	>> make cleandoc: elimina documentación creada.
+	>> make 		: compila *.java y genera los archivos *.class.
+	>> make jar		: genera PhysicsLab.jar
+	>> make run		: ejecuta el programa desde el jar (es necesario hace make && make jar antes de run)
+	>> mkae runApplet 	: ejecuta el applet usando el jar (idem que 'make run')
+	>> make clean 		: elimina *.class compilados y PhysicsLab.jar.
 
 Ejecución
 ----------
