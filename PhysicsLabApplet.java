@@ -6,7 +6,7 @@ import org.jfree.chart.ChartPanel;
 
 public class PhysicsLabApplet extends JApplet {
 	public void init() {
-		this.setSize(1024,768);
+		this.setSize(1360,400);
 		EnergyPlot energyChart = new EnergyPlot();
 		MyWorld world = new MyWorld();
 		world.associate(energyChart);
@@ -21,9 +21,7 @@ public class PhysicsLabApplet extends JApplet {
 	    JScrollPane buttomScrollPane = new JScrollPane(worldView);
 	    getContentPane().add(buttomScrollPane, BorderLayout.CENTER);
 	    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, buttomScrollPane, chartPanel);
-	    splitPane.setDividerLocation(512);
-	    
-	    
+	    splitPane.setDividerLocation(700);	    
 	    
 	    JInternalFrame frame = new JInternalFrame(getParameter("title"), false, false, false, false);
 	    frame.add(splitPane);

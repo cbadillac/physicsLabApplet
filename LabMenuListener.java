@@ -31,7 +31,7 @@ public class LabMenuListener implements ActionListener {
       String text = menuItem.getText();
       
       // Actions associated to main manu options
-      if ( (text.equals("My scenario")) && isApplet) {  // here you define Etapa2's configuration
+      if ( (text.equals("My scenario")) && !isApplet) {  // here you define Etapa2's configuration
        // to be coded
     	     	 
          double mass = 1.0;      // 1 [kg] 
