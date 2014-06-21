@@ -8,7 +8,7 @@ public class PhysicsLabApplet extends JApplet {
 	public void init() {
 		this.setSize(940,500);
 		EnergyPlot energyChart = new EnergyPlot();
-		MyWorld world = new MyWorld();
+		MyWorld world = new MyWorld(true);
 		world.associate(energyChart);
 		MyWorldView  worldView = new MyWorldView(world);
 		world.setView(worldView);

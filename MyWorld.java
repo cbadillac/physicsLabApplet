@@ -12,13 +12,19 @@ public class MyWorld implements ActionListener {
    private double t;        // simulation time
    private double delta_t;        // in seconds
    private double refreshPeriod;  // in seconds
+   private Boolean isApplet;
    
    private EnergyPlot energyPlot;
    
    public MyWorld(){
-      this(System.out);  // delta_t= 0.1[ms] and refreshPeriod=200 [ms]   
+      this(System.out,false);  // delta_t= 0.1[ms] and refreshPeriod=200 [ms]   
    }
-   public MyWorld(PrintStream output){
+   
+   public MyWorld(Boolean isApplet){
+	   this(System.out,true);
+   }
+   
+   public MyWorld(PrintStream output, Boolean isApplet){
       out = output;
       t = 0;
       refreshPeriod = 0.03;      // 60 [ms]
@@ -27,6 +33,7 @@ public class MyWorld implements ActionListener {
       view = null;
       passingTime = new Timer((int)(refreshPeriod*1000), this);  
       energyPlot = null;
+      this.isApplet = isApplet;
    }
    public void associate(EnergyPlot plot) {
 	   this.energyPlot = plot;
@@ -73,9 +80,11 @@ public class MyWorld implements ActionListener {
    }
    
    public void repaintView(){
-	  double ec = getTotalKineticEnergy();
-	  double pc = getTotalPotentialEnergy();
-	  energyPlot.add(t,ec,t,pc);
+	  if (isApplet) {
+		  double ec = getTotalKineticEnergy();
+		  double pc = getTotalPotentialEnergy();
+		  energyPlot.add(t,ec,t,pc);
+	}
       view.repaintView();
    }
 
