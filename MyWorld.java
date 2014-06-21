@@ -1,7 +1,5 @@
 import java.util.*;
 import java.io.*;
-
-import javax.sound.sampled.LineUnavailableException;
 import javax.swing.Timer;
 import java.awt.event.*;
 
@@ -14,19 +12,13 @@ public class MyWorld implements ActionListener {
    private double t;        // simulation time
    private double delta_t;        // in seconds
    private double refreshPeriod;  // in seconds
-   private Boolean isApplet;
    
    private EnergyPlot energyPlot;
    
    public MyWorld(){
-      this(System.out,false);  // delta_t= 0.1[ms] and refreshPeriod=200 [ms]   
+      this(System.out);  // delta_t= 0.1[ms] and refreshPeriod=200 [ms]   
    }
-   
-   public MyWorld(Boolean isApplet){
-	   this(System.out,true);
-   }
-   
-   public MyWorld(PrintStream output, Boolean isApplet){
+   public MyWorld(PrintStream output){
       out = output;
       t = 0;
       refreshPeriod = 0.03;      // 60 [ms]
@@ -35,7 +27,6 @@ public class MyWorld implements ActionListener {
       view = null;
       passingTime = new Timer((int)(refreshPeriod*1000), this);  
       energyPlot = null;
-      this.isApplet = isApplet;
    }
    public void associate(EnergyPlot plot) {
 	   this.energyPlot = plot;
@@ -82,25 +73,20 @@ public class MyWorld implements ActionListener {
    }
    
    public void repaintView(){
-	  if (isApplet) {
-		  double ec = getTotalKineticEnergy();
-		  double pc = getTotalPotentialEnergy();
-		  energyPlot.add(t,ec,t,pc);
-	}
+	  double ec = getTotalKineticEnergy();
+	  double pc = getTotalPotentialEnergy();
+	  energyPlot.add(t,ec,t,pc);
+	  
       view.repaintView();
    }
 
    public Ball findCollidingBall(Ball me) {
-	   for (PhysicsElement e: elements)
-		   if ( e instanceof Ball) {
-			   Ball b = (Ball) e;
-			   if ((b!=me) && b.collide(me)){
-				   SoundUtils.playBeep();
-					   return b;				   
-			   }
-
-		   }
-	   return null;
+      for (PhysicsElement e: elements)
+         if ( e instanceof Ball) {
+            Ball b = (Ball) e;
+            if ((b!=me) && b.collide(me)) return b;
+         }
+      return null;
    }
  
    public ArrayList<PhysicsElement> getPhysicsElements(){
@@ -131,7 +117,7 @@ public class MyWorld implements ActionListener {
 	   double balls_energy = 0.0;
 	   for( PhysicsElement e: elements) {
 		   if( e instanceof Ball) {
-			   balls_energy += Math.abs(((Ball)e).getSpeed()*((Ball)e).getMass()*0.5); 
+			   balls_energy += Math.abs(((Ball)e).getSpeed()*((Ball)e).getSpeed()*((Ball)e).getMass()*0.5); 
 		   }
 	   }
 	   
@@ -145,7 +131,6 @@ public class MyWorld implements ActionListener {
 			   double stretch = Math.abs(s.getBendPosition()-s.getAendPosition())-s.getRestLength();
 			   springs_energy += Math.abs(stretch*stretch*s.getStiffness()*0.5); 
 		   }
-		   out.println("Energua potencial: "+springs_energy);
 	   }
 	   
 	   return springs_energy;	   
