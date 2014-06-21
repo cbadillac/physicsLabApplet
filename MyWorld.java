@@ -92,7 +92,15 @@ public class MyWorld implements ActionListener {
       for (PhysicsElement e: elements)
          if ( e instanceof Ball) {
             Ball b = (Ball) e;
-            if ((b!=me) && b.collide(me)) return b;
+            if ((b!=me) && b.collide(me)){
+            	 try {
+         			SoundUtils.play(500, 450, 1.0);
+         		} catch (LineUnavailableException e1) {
+         			// TODO Auto-generated catch block
+         			e1.printStackTrace();
+            	return b;
+            }
+            
          }
       return null;
    }
