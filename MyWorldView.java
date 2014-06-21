@@ -1,6 +1,11 @@
 import javax.swing.JPanel;
+
+import org.jfree.chart.ChartPanel;
+
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.geom.*; 
 import java.awt.*;
 import java.util.*;
@@ -39,6 +44,7 @@ public class MyWorldView extends JPanel {
       addMouseMotionListener(mListener);
       addMouseListener(mListener);
       addKeyListener(new NextKeyListener(mListener));
+      
       setFocusable(true);
    }
 

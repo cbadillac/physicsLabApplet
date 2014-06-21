@@ -32,7 +32,7 @@ class PhysicsLab_GUI extends JFrame {
       setLayout(new GridLayout(2,1,0,50));
 
 	    ChartPanel chartPanel = new ChartPanel(energyChart.getPlot());
-	    chartPanel.setPreferredSize(new Dimension(300,200));
+	    chartPanel.setPreferredSize(new Dimension(950,500));
 	    menuListener.associate(energyChart);
 	    
 		add(chartPanel);

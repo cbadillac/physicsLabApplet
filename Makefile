@@ -2,7 +2,7 @@ JFLAGS = -g
 JC = javac
 JAR = jar -cvfm
 JARNAME = PhysicsLab.jar
-JARCLASS = PhysicsLab.class
+JARCLASS = PhysicsLabApplet.class
 CLASSPATH = .:jfreechart.jar:jcommon.jar
 RM = rm
 
