@@ -26,7 +26,8 @@ SOURCES = \
 	Simulateable.java \
 	PhysicsElement.java \
 	PhysicsLab.java \
-	PhysicsLabApplet.java
+	PhysicsLabApplet.java \
+	SoundUtils.java
 
 CLASSES = \
         Ball.class \
@@ -43,7 +44,8 @@ CLASSES = \
         Simulateable.class \
         PhysicsElement.class \
         PhysicsLab.class \
-        PhysicsLabApplet.class
+        PhysicsLabApplet.class \
+	SoundUtils.class
 
 
 default: classes
