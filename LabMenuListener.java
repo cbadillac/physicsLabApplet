@@ -1,4 +1,5 @@
 import java.awt.event.*; 
+
 import java.util.regex.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +7,12 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import org.jfree.chart.ChartPanel;
+import org.jfree.data.xy.XYSeries;
+
 public class LabMenuListener implements ActionListener {
    private MyWorld  world;
+   private EnergyPlot plot;
    private boolean isApplet = false;
    private PhysicsLabApplet phyla;
    
@@ -25,7 +30,7 @@ public class LabMenuListener implements ActionListener {
       String text = menuItem.getText();
       
       // Actions associated to main manu options
-      if ( (text.equals("My scenario")) && !isApplet) {  // here you define Etapa2's configuration
+      if ( (text.equals("My scenario")) && isApplet) {  // here you define Etapa2's configuration
        // to be coded
     	     	 
          double mass = 1.0;      // 1 [kg] 
@@ -77,6 +82,9 @@ public class LabMenuListener implements ActionListener {
     	  world.setDelta_t(Float.parseFloat(phyla.getParameter("deltaTime")));
     	  world.setRefreshPeriod(Float.parseFloat(phyla.getParameter("refreshTime")));
       }
+      if (text.equals("Clear Plot"))
+          plot.clear();
+      
       if (text.equals("Ball")) 
         world.addElement(new Ball(1.0, 0.1, 1.2, 0));
       if (text.equals("Fixed Hook"))  
@@ -85,6 +93,7 @@ public class LabMenuListener implements ActionListener {
         world.addElement(new Spring(0.5, 5));
       if (text.equals("Oscillator")) 
         world.addElement(new Oscillator(0.5,0.1,0.5));
+      
 
       // Actions associated to MyWorld submenu
       if (text.equals("Start"))   /* to be coded */
@@ -102,6 +111,9 @@ public class LabMenuListener implements ActionListener {
          String data = JOptionPane.showInputDialog("Enter view refresh time [s]");
          world.setRefreshPeriod(Double.parseDouble(data));
       }
+   }
+   public void associate(EnergyPlot p) {
+	   this.plot = p;
    }
    public boolean isApplet() {
 	   return isApplet;

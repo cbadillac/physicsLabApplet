@@ -1,4 +1,5 @@
 import java.awt.Color;
+
 import java.util.Random;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartFactory;
@@ -50,12 +51,17 @@ public class EnergyPlot{
 	    
 	    return jfreechart;
 	}
-	public JFreeChart getPlot() {
-		return this.plot;
+	public void clear() {
+		this.cinetica.clear();
+		this.mecanica.clear();
+		this.potencial.clear();
 	}
 	public void add(double cx, double cy, double px, double py) {
 		cinetica.add(cx, cy);
 		potencial.add(px, py);
 		mecanica.add(cx, cy+py);
+	}
+	public JFreeChart getPlot() {
+		return this.plot;
 	}
 }

@@ -2,6 +2,7 @@ import java.awt.*;
 
 import javax.swing.*;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.plot.XYPlot;
 
 public class PhysicsLabApplet extends JApplet {
 	public void init() {
@@ -19,6 +20,7 @@ public class PhysicsLabApplet extends JApplet {
 
 	    ChartPanel chartPanel = new ChartPanel(energyChart.getPlot());
 	    chartPanel.setPreferredSize(new Dimension(300,200));
+	    menuListener.associate(energyChart);
 		
 		Container contentPane = getContentPane();
 		contentPane.add(chartPanel);
@@ -50,7 +52,6 @@ public class PhysicsLabApplet extends JApplet {
 		menuItem.addActionListener(menu_l);
 		subMenu.add(menuItem);
 		
-
 		menu = new JMenu("MyWorld");
 		mb.add(menu);
 		menuItem = new JMenuItem("Start");
@@ -66,7 +67,13 @@ public class PhysicsLabApplet extends JApplet {
 		menuItem = new JMenuItem("View Refresh time");
 		menuItem.addActionListener(menu_l);
 		subMenu.add(menuItem);
-		menu.add(subMenu);      
+		menu.add(subMenu);
+		
+		menu = new JMenu("Plot");
+		mb.add(menu);
+		menuItem = new JMenuItem("Clear Plot");
+		menuItem.addActionListener(menu_l);
+		menu.add(menuItem);
 		
 		return mb;
 	}
