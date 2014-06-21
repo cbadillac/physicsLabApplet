@@ -1,9 +1,10 @@
 import java.awt.event.*; 
-
+import java.awt.*;
 import java.util.regex.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -103,7 +104,8 @@ public class LabMenuListener implements ActionListener {
         world.stop();
         
       if (text.equals("Delta time")) {
-         String data = JOptionPane.showInputDialog("Enter delta t [s]");
+    	  
+    	  String data = JOptionPane.showInputDialog("Enter delta t [s]");
          world.setDelta_t(Double.parseDouble(data));
       }
       if (text.equals("View Refresh time")) {

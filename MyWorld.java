@@ -1,5 +1,7 @@
 import java.util.*;
 import java.io.*;
+
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.Timer;
 import java.awt.event.*;
 
@@ -89,20 +91,16 @@ public class MyWorld implements ActionListener {
    }
 
    public Ball findCollidingBall(Ball me) {
-      for (PhysicsElement e: elements)
-         if ( e instanceof Ball) {
-            Ball b = (Ball) e;
-            if ((b!=me) && b.collide(me)){
-            	 try {
-         			SoundUtils.play(500, 450, 1.0);
-         		} catch (LineUnavailableException e1) {
-         			// TODO Auto-generated catch block
-         			e1.printStackTrace();
-            	return b;
-            }
-            
-         }
-      return null;
+	   for (PhysicsElement e: elements)
+		   if ( e instanceof Ball) {
+			   Ball b = (Ball) e;
+			   if ((b!=me) && b.collide(me)){
+				   SoundUtils.playBeep();
+					   return b;				   
+			   }
+
+		   }
+	   return null;
    }
  
    public ArrayList<PhysicsElement> getPhysicsElements(){
