@@ -49,7 +49,7 @@ public class SoundUtils {
 		  DataLine.Info info;
 		  Clip clip;
 		  
-		  yourFile = new File("beep-10.wav");
+		  yourFile = new File("clock.wav");
 
 		  stream = AudioSystem.getAudioInputStream(yourFile);
 		  format = stream.getFormat();

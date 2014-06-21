@@ -12,6 +12,7 @@ public class MyWorld implements ActionListener {
    private double t;        // simulation time
    private double delta_t;        // in seconds
    private double refreshPeriod;  // in seconds
+   private int count = 0;
    
    private EnergyPlot energyPlot;
    
@@ -84,7 +85,17 @@ public class MyWorld implements ActionListener {
       for (PhysicsElement e: elements)
          if ( e instanceof Ball) {
             Ball b = (Ball) e;
-            if ((b!=me) && b.collide(me)) return b;
+	            if ((b!=me) && b.collide(me)){
+	            	if (count ==1) {
+	            		SoundUtils.playBeep();
+	            		count = 0;
+					}else{
+						count++;
+					}
+	            	
+	            	return b;
+	            
+	            }
          }
       return null;
    }
