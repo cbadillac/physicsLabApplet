@@ -2,13 +2,12 @@ import java.awt.*;
 
 import javax.swing.*;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.plot.XYPlot;
 
 public class PhysicsLabApplet extends JApplet {
 	public void init() {
 		this.setSize(940,500);
 		EnergyPlot energyChart = new EnergyPlot();
-		MyWorld world = new MyWorld(true);
+		MyWorld world = new MyWorld();
 		world.associate(energyChart);
 		MyWorldView  worldView = new MyWorldView(world);
 		world.setView(worldView);
